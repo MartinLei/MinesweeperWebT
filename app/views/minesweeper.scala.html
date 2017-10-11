@@ -1,7 +1,10 @@
 @(game: String)
 
-@main("Welcome to Minesweeper") {
-
-    @game.replace("\n", "<br />"))
-
-}
+    @main("Welcome to Minesweeper") {
+        <div class="tui">
+        @for(line <- game.split("\n")) {
+            <p>@line</p>
+            <br/>
+        }
+        </div>
+    }
