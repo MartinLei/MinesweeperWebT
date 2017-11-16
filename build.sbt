@@ -12,4 +12,4 @@ libraryDependencies += guice
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
 libraryDependencies += "com.h2database" % "h2" % "1.4.196"
 
-unmanagedJars in Compile += file("lib/MinesweeperSoEn.jar")
+unmanagedJars in Compile += file("../MinesweeperSoEn/build/libs/MinesweeperSoEn-all.jar")
