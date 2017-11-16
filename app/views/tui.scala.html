@@ -1,10 +1,8 @@
-@(game: String)
+@(tuiString: String)
 
-    @main("Text UI") {
-        <div class="tui">
-        @for(line <- game.split("\n")) {
-            <span>@line</span>
-            <br/>
-        }
-        </div>
-    }
+<div class="tui">
+  @for(line <- tuiString.split("\n")) {
+    <span>@line</span>
+    <br/>
+  }
+</div>

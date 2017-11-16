@@ -2,8 +2,8 @@
 # ~~~~
 
 GET        /                            controllers.HomeController.index
-GET        /minesweeper                 controllers.HomeController.tui(command:String = "")
-GET        /minesweeper/:command        controllers.HomeController.tui(command:String)
+GET        /minesweeper                 controllers.HomeController.minesweeper(command = "")
+GET        /minesweeper/:command        controllers.HomeController.minesweeper(command)
 GET        /history                     controllers.HomeController.history
 
 # Map static resources from the /public folder to the /assets URL path

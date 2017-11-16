@@ -1,0 +1,15 @@
+@import minesweeper.model.ICell
+@import minesweeper.model.IGrid
+@(grid: IGrid[ICell])
+
+<div class="cell_grid" style="
+  grid-template-columns: repeat(@grid.getWidth , auto);
+  grid-template-rows: repeat(@grid.getHeight , auto);
+">
+  @for(cell <- grid.getCells) {
+    <div class="cell">
+    @(cell.mkString)
+    </div>
+  }
+</div>
+

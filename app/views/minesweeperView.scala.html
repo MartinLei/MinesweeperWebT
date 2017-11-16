@@ -1,0 +1,9 @@
+@import minesweeper.model.IGrid
+@import minesweeper.model.ICell
+@(grid: IGrid[ICell], tuiString: String)
+
+@main("Minesweeper") {
+  @gui(grid)
+  <br>
+  @tui(tuiString)
+}
