@@ -6,4 +6,5 @@ target
 /.project
 /.settings
 /RUNNING_PID
-minesweeper.log
+/minesweeper.log
+/minesweeper.log.1
