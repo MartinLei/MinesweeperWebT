@@ -18,12 +18,6 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.index("Welcome to Minesweeper"))
   }
 
-  private def getCells: List[ICell] = {
-    val cells: java.util.List[ICell] = gameController.getGrid.getCells
-
-    cells.asScala.toList
-  }
-
   def minesweeper(command: String) = Action {
     tuiInstance.processLine(command)
 
