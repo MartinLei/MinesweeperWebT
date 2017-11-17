@@ -16,10 +16,37 @@ object MinesweeperEvent {
 
   case class SingleCellChanged(grid: IGrid[ICell], gameState: MinesweeperGameState, position: Position) extends MinesweeperEvent
 
-  case object DebugEvent extends MinesweeperEvent
+  implicit object MinesweeperEventWriter extends RootJsonWriter[MinesweeperEvent] {
+    import api.MinesweeperProtocol.GridJsonFormat
 
-  implicit object MinesweeperEventFormat extends RootJsonWriter[MinesweeperEvent] {
-    override def write(obj: MinesweeperEvent): JsValue = ???
+    override def write(obj: MinesweeperEvent): JsValue = obj match {
+      case DimensionsChanged(settings, grid, gameState) =>
+        JsObject(
+          "event" -> JsString("DimensionsChanged"),
+          "settings" -> settings.toJson,
+          "grid" -> grid.toJson,
+          "gameState" -> gameState.toJson
+        )
+      case MultipleCellsChanged(grid, gameState) =>
+        JsObject(
+          "event" -> JsString("MultipleCellsChanged"),
+          "grid" -> grid.toJson,
+          "gameState" -> gameState.toJson
+        )
+      case NoCellChanged(grid, gameState) =>
+        JsObject(
+          "event" -> JsString("NoCellChanged"),
+          "grid" -> grid.toJson,
+          "gameState" -> gameState.toJson
+        )
+      case SingleCellChanged(grid, gameState, position) =>
+        JsObject(
+          "event" -> JsString("SingleCellChanged"),
+          "position" -> position.toJson,
+          "grid" -> grid.toJson,
+          "gameState" -> gameState.toJson
+        )
+    }
   }
 
 }
