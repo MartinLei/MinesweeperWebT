@@ -1,0 +1,4 @@
+"Running"
+"FirstClick"
+"Win"
+"Lose"

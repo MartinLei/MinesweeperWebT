@@ -1,0 +1,5 @@
+{
+  "event": "MultipleCellsChanged",
+  "grid": [[]],
+  "gameState": "Running"
+}
