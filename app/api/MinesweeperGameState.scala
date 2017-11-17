@@ -1,30 +1,38 @@
 package api
 
-import enumeratum._
 import spray.json._
 
-import scala.collection.immutable
 
+sealed trait MinesweeperGameState
 
-sealed trait MinesweeperGameState extends EnumEntry {
+object MinesweeperGameState extends MinesweeperGameState {
+  def apply(gameStateName: String): MinesweeperGameState = gameStateName match {
+    case "Running" => Running
+    case "FirstClick" => FirstClick
+    case "Win" => Win
+    case "Lose" => Lose
+    case other => throw new IllegalArgumentException(other)
+  }
 
-}
+  case object Running extends MinesweeperGameState {
+    override def toString: String = "Running"
+  }
 
-object MinesweeperGameState extends Enum[MinesweeperGameState] {
+  case object FirstClick extends MinesweeperGameState {
+    override def toString: String = "FirstClick"
+  }
 
-  case object Running extends MinesweeperGameState
+  case object Win extends MinesweeperGameState {
+    override def toString: String = "Win"
+  }
 
-  case object FirstClick extends MinesweeperGameState
-
-  case object Win extends MinesweeperGameState
-
-  case object Lose extends MinesweeperGameState
-
-  override def values: immutable.IndexedSeq[MinesweeperGameState] = findValues
+  case object Lose extends MinesweeperGameState {
+    override def toString: String = "Lose"
+  }
 
   implicit object MinesweeperGameStateWriter extends RootJsonWriter[MinesweeperGameState] {
     override def write(obj: MinesweeperGameState): JsValue = {
-      JsString(obj.entryName)
+      JsString(obj.toString)
     }
   }
 }

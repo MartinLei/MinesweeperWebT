@@ -12,6 +12,5 @@ libraryDependencies += guice
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2" % Test
 libraryDependencies += "com.h2database" % "h2" % "1.4.196"
 libraryDependencies += "io.spray" %%  "spray-json" % "1.3.3"
-libraryDependencies += "com.beachape" % "enumeratum_2.11" % "1.5.12"
 
 unmanagedJars in Compile += file("../MinesweeperSoEn/build/libs/MinesweeperSoEn-all.jar")
