@@ -1,23 +1,20 @@
 package api
 
-import minesweeper.model.impl.Cell
-import minesweeper.model.impl.Grid
 import minesweeper.model.ICell
 import minesweeper.model.IGrid
+import minesweeper.model.impl.Cell
+import minesweeper.model.impl.Grid
 import minesweeper.solverplugin.impl.jacop.JacopSolver.SolveResult
-
 import spray.json._
 
 import scala.collection.JavaConverters._
 
 object MinesweeperProtocol extends DefaultJsonProtocol {
 
-
   implicit class CellExtension(cell: ICell) {
     def getPosition = Position(cell.getRow, cell.getCol)
   }
 
-  implicit val positionFormat: RootJsonFormat[Position] = jsonFormat2(Position)
 
   implicit object CellJsonFormat extends RootJsonFormat[ICell] {
     def write(c: ICell): JsObject = {

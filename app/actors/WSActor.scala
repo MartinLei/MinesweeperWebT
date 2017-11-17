@@ -1,7 +1,8 @@
 package actors
 
 import akka.actor._
-import api.MinesweeperAction.DebugAction
+import api.MinesweeperAction
+import api.MinesweeperEvent
 import api.MinesweeperEvent.DebugEvent
 import minesweeper.controller.IMinesweeperControllerSolvable
 
@@ -11,8 +12,13 @@ object WSActor {
 
 class WSActor(out: ActorRef, gameController: IMinesweeperControllerSolvable) extends Actor {
   def receive: PartialFunction[Any, Unit] = {
-    case msg: DebugAction =>
-      println("WS: " + msg)
-      out ! (DebugEvent)
+    case action: MinesweeperAction =>
+      println("WSActor: " + action)
+      send(DebugEvent)
+    case unknown => println("WSActor: unknown message: " + unknown)
+  }
+
+  def send(event: MinesweeperEvent): Unit = {
+    out ! event
   }
 }
