@@ -1,7 +1,23 @@
 @import "material-color";
 
+/* Move down content because we have a fixed navbar that is 3.5rem tall */
+body {
+  padding-top: 3.5rem;
+}
+
+
 .tui {
   font-family: Lucida Console, monospace
+}
+
+.wrapper__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  align-items: center;
+  justify-items: center;
+  overflow-x: auto;
+
 }
 
 .grid {
@@ -16,12 +32,15 @@
   grid-gap: 5px;
   align-items: stretch;
   justify-items: stretch;
-  align-content: center;
+  align-content: space-between;
   justify-content: center;
 
-  overflow-x: scroll;
+
+  width: auto;
 
   background-color: @clr-grey-600;
+
+  padding: 2rem;
 
   &__cell {
     display: grid;
@@ -31,6 +50,10 @@
     justify-items: center;
 
     border-radius: 0.3rem;
+
+    &:hover {
+      text-decoration: none;
+    }
 
     &--closed {
       box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.4);
@@ -52,7 +75,7 @@
 
     }
   }
-  &__content{
+  &__content {
 
   }
   &__mine {
