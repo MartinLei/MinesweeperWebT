@@ -23,14 +23,7 @@ object MinesweeperAction {
       obj.getFields("action") match {
         case Seq(JsString("changeSettings")) =>
           obj.getFields("settings") match {
-            case Seq(settings: JsObject) =>
-              settings.getFields("height", "width", "mines") match {
-                case Seq(JsNumber(height), JsNumber(width), JsNumber(mines)) =>
-                  ChangeSettings(MinesweeperSettings(
-                    height.toIntExact, width.toIntExact, mines.toIntExact)
-                  )
-                case _ => deserializationError("incorrect settings object")
-              }
+            case Seq(settings: JsObject) => ChangeSettings(settings.convertTo[MinesweeperSettings])
             case _ => deserializationError("settings must be a object")
           }
         case Seq(JsString("newGame")) => NewGame()

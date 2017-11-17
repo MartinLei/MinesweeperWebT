@@ -47,7 +47,7 @@ class WSActor(out: ActorRef, gameController: IMinesweeperControllerSolvable) ext
     out ! event
   }
 
-  override def postStop() = {
+  override def postStop(): Unit = {
     println("WSActor: stopped")
   }
 }
