@@ -88,7 +88,16 @@ class GridController {
     }
 
     onMessage(minesweeperEvent) {
+        this.setGridCss(minesweeperEvent.settings);
         this.rebuildGrid(minesweeperEvent.grid);
+    }
+
+
+    setGridCss(settings) {
+        this.gridRoot.css({
+            "--gridWidth": settings.width.toString(),
+            "--gridHeight": settings.height.toString(),
+        });
     }
 
     rebuildGrid(grid) {
