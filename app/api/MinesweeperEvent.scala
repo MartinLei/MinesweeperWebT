@@ -17,11 +17,12 @@ object MinesweeperEvent {
   def apply(event: Event, grid: IGrid[ICell], gameStateName: String): MinesweeperEvent = {
     val gameState = MinesweeperGameState(gameStateName)
 
-    event match {
-      case _: ControllerDimensionsChanged => DimensionsChanged(grid, gameState)
-      case _: ControllerMultipleCellsChanged => MultipleCellsChanged(grid,gameState)
-      case _: ControllerNoCellChanged => NoCellChanged(grid,gameState)
-      case event: ControllerSingleCellChanged => SingleCellChanged(grid,gameState, Position(event.getRow, event.getCol))
+    Option(event) match {
+      case Some(_: ControllerDimensionsChanged) => DimensionsChanged(grid, gameState)
+      case Some(_: ControllerMultipleCellsChanged) => MultipleCellsChanged(grid,gameState)
+      case Some(_: ControllerNoCellChanged) => NoCellChanged(grid,gameState)
+      case Some(event: ControllerSingleCellChanged) => SingleCellChanged(grid,gameState, Position(event.getRow, event.getCol))
+      case Some(_) | None => NoCellChanged(grid,gameState)
     }
   }
 
