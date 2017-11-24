@@ -15,7 +15,7 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   tuiInstance.setPrintCommands(false)
 
   def index = Action {
-    Ok(views.html.index("Welcome to Minesweeper"))
+    Ok(views.html.index())
   }
 
   def minesweeper(command: String) = Action {

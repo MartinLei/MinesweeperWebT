@@ -179,6 +179,51 @@ class GridController {
     }
 }
 
+class GameControls {
+
+    constructor(wsController) {
+        this.wsController = wsController;
+
+        $("#btn__new-game").click(() => this.newGame());
+        $("#btn__change-difficulty--easy").click(() => this.changeDifficulty({
+            "height": 8,
+            "width": 8,
+            "mines": 10
+        }));
+        $("#btn__change-difficulty--intermediate").click(() => this.changeDifficulty({
+            "height": 16,
+            "width": 16,
+            "mines": 40
+        }));
+        $("#btn__change-difficulty--hard").click(() => this.changeDifficulty({
+            "height": 16,
+            "width": 30,
+            "mines": 99
+        }));
+
+        //TODO
+        $("#btn__change-difficulty--custom").click(() => console.log("TODO"));
+
+    }
+
+    newGame() {
+        this.wsController.send({
+            "action": "newGame"
+        });
+    }
+
+    changeDifficulty(settings) {
+        this.wsController.send({
+            action: "changeSettings",
+            settings: settings
+        });
+    }
+}
+
 $(document).ready(() => {
-    window.gridController = new GridController("ws://localhost:9000/ws");
+    let gridController = new GridController("ws://localhost:9000/ws");
+    let gameControls = new GameControls(gridController.wsController);
+
+    window.gridController = gridController;
+    window.gameControls = gameControls;
 });

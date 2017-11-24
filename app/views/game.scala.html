@@ -3,7 +3,7 @@
 @(grid: IGrid[ICell], tuiString: String)
 
 @main("Minesweeper") {
-  @gui(grid)
-  <br>
-  @tui(tuiString)
+  @game_controls()
+  @wrapper__grid(grid)
+  <script src="@routes.Assets.versioned("/javascripts/game.js")" type="text/javascript"></script>
 }

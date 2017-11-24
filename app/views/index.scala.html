@@ -1,7 +1,12 @@
-@(message: String)
+@()
 
 @main("Welcome to Minesweeper") {
-
-    @message
-
+    <div class="jumbotron">
+        <h1 class="display-3">Welcome to Minesweeper</h1>
+        <p class="lead">Part of the lecture "Web Technologies"</p>
+        <hr class="my-4">
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="/minesweeper" role="button">Start playing</a>
+        </p>
+    </div>
 }
