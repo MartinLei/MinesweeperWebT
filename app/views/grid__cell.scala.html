@@ -5,8 +5,7 @@
   @if(cell.isFlag) {grid__cell--flagged}
   @if(cell.isOpened) {grid__cell--revealed}
   @if(cell.isClosed) {grid__cell--closed}
-  @if(cell.isOpened && cell.isMine) {grid__cell--mine}"
-href="/minesweeper/o @cell.getRow @cell.getCol">
+  @if(cell.isOpened && cell.isMine) {grid__cell--mine}">
 @if(cell.isOpened) {
   @if(cell.isMine) {
     <div class="grid__content grid__mine">@(cell.toString)</div>
