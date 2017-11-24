@@ -258,7 +258,7 @@ class GameControls {
 }
 
 $(document).ready(() => {
-  let gridController = new GridController("ws://localhost:9000/ws");
+  let gridController = new GridController("ws://" + location.host + "/ws");
   let gameControls = new GameControls(gridController.wsController);
 
   window.gridController = gridController;

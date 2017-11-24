@@ -19,7 +19,9 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   }
 
   def minesweeper(command: String) = Action {
-    tuiInstance.processLine(command)
+    if (command != "") {
+      tuiInstance.processLine(command)
+    }
 
     val tuiAsString: String = tuiInstance.getTUIAsString
     Ok(views.html.game(gameController.getGrid, tuiAsString))
