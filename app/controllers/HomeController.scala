@@ -22,7 +22,7 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     tuiInstance.processLine(command)
 
     val tuiAsString: String = tuiInstance.getTUIAsString
-    Ok(views.html.minesweeperView(gameController.getGrid, tuiAsString))
+    Ok(views.html.game(gameController.getGrid, tuiAsString))
   }
 
   def history = Action {
