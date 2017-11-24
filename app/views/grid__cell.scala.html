@@ -8,7 +8,7 @@
   @if(cell.isOpened && cell.isMine) {grid__cell--mine}">
 @if(cell.isOpened) {
   @if(cell.isMine) {
-    <div class="grid__content grid__mine">@(cell.toString)</div>
+    <img class="grid__content grid__mine"/>
   } else {
     <div class="grid__content grid__number grid__number--@cell.getMines">@(cell.toString)</div>
   }

@@ -122,7 +122,7 @@ class GridController {
             "class": cellClassString
         });
 
-        cellElement.append(this.getCellContentElement(cell));
+        cellElement.append(GridController.getCellContentElement(cell));
 
         cellElement.mousedown(e => this.onCellClick(e, cell));
 
@@ -159,12 +159,13 @@ class GridController {
         }
     }
 
-    getCellContentElement(cell) {
+    static getCellContentElement(cell) {
         if (cell.isRevealed) {
             if (cell.hasMine) {
-                return $("<div/>", {
-                    "class": "grid__content grid__mine"
-                }).append("M");
+                return $("<img/>", {
+                    "class": "grid__content grid__mine",
+                    "src": "/assets/images/mine.png"
+                });
             } else {
                 let classString = `grid__content grid__number grid__number--${cell.surroundingMines}`;
                 let numberString = cell.surroundingMines > 0 && cell.surroundingMines;
