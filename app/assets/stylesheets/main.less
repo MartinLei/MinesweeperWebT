@@ -5,9 +5,16 @@ body {
   padding-top: 4.5rem;
 }
 
-
 .tui {
   font-family: Lucida Console, monospace
+}
+
+.game-controls {
+  margin: 1rem 0;
+
+  &__dropdown-change-difficulty {
+    display: inline-block;
+  }
 }
 
 .wrapper__grid {
@@ -18,14 +25,6 @@ body {
   justify-items: center;
   overflow-x: auto;
 
-}
-
-.game-controls {
-  margin: 1rem;
-
-  &__dropdown-change-difficulty{
-    display: inline-block;
-  }
 }
 
 .grid {
@@ -41,7 +40,6 @@ body {
   justify-items: stretch;
   align-content: space-between;
   justify-content: center;
-
 
   width: auto;
 
@@ -125,4 +123,9 @@ body {
       color: @clr-grey;
     }
   }
+}
+
+.game-status {
+  margin: 1rem 0;
+
 }
