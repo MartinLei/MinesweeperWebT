@@ -1,5 +1,10 @@
 {
   "event": "DimensionsChanged",
   "grid": [[]],
-  "gameState": "FirstClick"
+  "gameState": "FirstClick",
+  "settings": {
+    "height": 8,
+    "width": 8,
+    "mines": 10
+  }
 }

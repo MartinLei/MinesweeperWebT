@@ -42,18 +42,21 @@ object MinesweeperEvent {
         JsObject(
           "event" -> JsString("DimensionsChanged"),
           "grid" -> grid.toJson,
+          "settings" -> MinesweeperSettings.fromGrid(grid).toJson,
           "gameState" -> gameState.toJson
         )
       case MultipleCellsChanged(grid, gameState) =>
         JsObject(
           "event" -> JsString("MultipleCellsChanged"),
           "grid" -> grid.toJson,
+          "settings" -> MinesweeperSettings.fromGrid(grid).toJson,
           "gameState" -> gameState.toJson
         )
       case NoCellChanged(grid, gameState) =>
         JsObject(
           "event" -> JsString("NoCellChanged"),
           "grid" -> grid.toJson,
+          "settings" -> MinesweeperSettings.fromGrid(grid).toJson,
           "gameState" -> gameState.toJson
         )
       case SingleCellChanged(grid, gameState, position) =>
@@ -61,6 +64,7 @@ object MinesweeperEvent {
           "event" -> JsString("SingleCellChanged"),
           "position" -> position.toJson,
           "grid" -> grid.toJson,
+          "settings" -> MinesweeperSettings.fromGrid(grid).toJson,
           "gameState" -> gameState.toJson
         )
     }

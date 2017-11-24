@@ -1,5 +1,10 @@
 {
   "event": "NoCellChanged",
   "grid": [[]],
-  "gameState": "Running"
+  "gameState": "Running",
+  "settings": {
+    "height": 8,
+    "width": 8,
+    "mines": 10
+  }
 }
