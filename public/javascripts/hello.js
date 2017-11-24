@@ -66,8 +66,14 @@ class WebSocketController {
         }
         if (this.isClosed()) {
             this.createNewWebSocket();
-            this.messageQueue.append(message);
+            this.messageQueue.push(message);
         }
+    }
+
+    close() {
+        console.log("WebSocketController.close");
+
+        this.webSocket.close();
     }
 }
 
@@ -174,5 +180,5 @@ class GridController {
 }
 
 $(document).ready(() => {
-    document.gridBuilder = new GridController("ws://localhost:9000/ws");
+    window.gridController = new GridController("ws://localhost:9000/ws");
 });
