@@ -16,6 +16,8 @@ object MinesweeperAction {
 
   case class ToggleFlag(position: Position) extends MinesweeperAction
 
+  case class Join() extends MinesweeperAction
+
 
   implicit object MinesweeperActionFormat extends RootJsonReader[MinesweeperAction] {
     override def read(json: JsValue): MinesweeperAction = {
@@ -42,6 +44,7 @@ object MinesweeperAction {
             case Seq(position: JsObject) => ToggleFlag(position.convertTo[Position])
             case _ => deserializationError("incorrect position")
           }
+        case Seq(JsString("join")) => Join()
         case _ => deserializationError("action field missing")
       }
     }

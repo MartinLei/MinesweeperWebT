@@ -3,6 +3,7 @@ package actors
 import akka.actor._
 import api.MinesweeperAction
 import api.MinesweeperAction.ChangeSettings
+import api.MinesweeperAction.Join
 import api.MinesweeperAction.NewGame
 import api.MinesweeperAction.OpenAround
 import api.MinesweeperAction.OpenCell
@@ -31,6 +32,7 @@ class WSActor(out: ActorRef, gameController: IMinesweeperControllerSolvable) ext
           gameController.openCell(position.row, position.col)
         case ToggleFlag(position) =>
           gameController.toggleFlag(position.row, position.col)
+        case Join() =>
       }
 
       val minesweeperEvent = MinesweeperEvent(
