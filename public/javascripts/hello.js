@@ -109,12 +109,13 @@ class GridController {
 
         cellElement.append(this.getCellContentElement(cell));
 
-        cellElement.click(e => this.onCellClick(e, cell));
+        cellElement.mousedown(e => this.onCellClick(e, cell));
 
         return cellElement;
     }
 
     onCellClick(e, cell) {
+        console.log("onCellClick");
         console.log(e);
 
         e.preventDefault();
@@ -172,4 +173,6 @@ class GridController {
     }
 }
 
-let gridBuilder = new GridController("ws://localhost:9000/ws");
+$(document).ready(() => {
+    document.gridBuilder = new GridController("ws://localhost:9000/ws");
+});
