@@ -8,11 +8,12 @@
 
   @game_controls()
   @wrapper__grid(grid)
-  <div class="game-status"></div>
 
   <div id="minesweeper-game" class="pagecontainer">
-    <minesweeper-field></minesweeper-field>
+    <minesweeper-controls></minesweeper-controls>
   </div>
+
+  <div class="game-status"></div>
 
   <script src="@routes.Assets.versioned("/javascripts/game.js")" type="text/javascript"></script>
 }
