@@ -3,8 +3,16 @@
 @(grid: IGrid[ICell], tuiString: String)
 
 @main("Minesweeper") {
+  <script src="@routes.Assets.versioned("javascripts/vue.js")" ></script>
+  <script src="@routes.Assets.versioned("javascripts/gameVue.js")" ></script>
+
   @game_controls()
   @wrapper__grid(grid)
   <div class="game-status"></div>
+
+  <div id="minesweeper-game" class="pagecontainer">
+    <minesweeper-field></minesweeper-field>
+  </div>
+
   <script src="@routes.Assets.versioned("/javascripts/game.js")" type="text/javascript"></script>
 }
