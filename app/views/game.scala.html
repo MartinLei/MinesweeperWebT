@@ -6,12 +6,12 @@
   <script src="@routes.Assets.versioned("javascripts/vue.js")" ></script>
   <script src="@routes.Assets.versioned("javascripts/gameVue.js")" ></script>
 
-  @game_controls()
-  @wrapper__grid(grid)
 
   <div id="minesweeper-game" class="pagecontainer">
     <minesweeper-controls></minesweeper-controls>
   </div>
+
+  @wrapper__grid(grid)
 
   <div class="game-status"></div>
 
