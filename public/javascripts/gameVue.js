@@ -1,4 +1,4 @@
-let minesweeperGame;
+var minesweeperGame;
 
 $(document).ready(function () {
     minesweeperGame = new Vue({
