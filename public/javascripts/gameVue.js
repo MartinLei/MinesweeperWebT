@@ -1,7 +1,17 @@
+let minesweeperGame;
+
 $(document).ready(function () {
-    var minesweeperGame = new Vue({
-        el: '#minesweeper-game'
-    })
+    minesweeperGame = new Vue({
+        el: '#minesweeper-game',
+        data: function () {
+            return {
+                wsField: 0
+            }
+        }
+    });
+
+    //bind to game.js
+    window.gridController.vueInstance = minesweeperGame;
 
 });
 
@@ -21,7 +31,7 @@ Vue.component('minesweeper-controls', {
     `,
     methods: {
         newGame: function () {
-            window.gameControls.newGame()
+            window.gameControls.newGame();
         },
         changeDifficultyEasy: function () {
             window.gameControls.changeDifficulty({
@@ -45,4 +55,15 @@ Vue.component('minesweeper-controls', {
             })
         }
     }
+});
+
+Vue.component('minesweeper-field', {
+    template: `
+        <div class="gamecontainer">
+         <a>FIELD://</a>
+         <a>{{field}}</a>
+         <a>END</a>
+        </div>
+    `,
+    props: ['field'],
 });
