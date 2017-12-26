@@ -88,7 +88,7 @@ class GridController {
 
         this.statusRoot = $(".game-status").first();
 
-        var vueInstance;
+        let vueInstance;
     }
 
     static getCellContentElement(cell) {
@@ -130,9 +130,9 @@ class GridController {
 
     updateVueGrid(grid) {
         // set grid in vue
-        if (window.gridController.vueInstance != null) {
+        if (this.vueInstance !== null) {
             console.log("set grid on vue");
-            Vue.set(window.gridController.vueInstance, "wsField", grid)
+            Vue.set(this.vueInstance, "wsField", grid)
         } else {
             console.log("ERROR: vue not set");
         }
