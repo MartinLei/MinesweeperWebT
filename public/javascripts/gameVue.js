@@ -85,9 +85,20 @@ Vue.component('minesweeper-cell', {
        </a>
        <a v-else >
            <div v-if="cell.isFlagged" class="cell--flagged"><img src="/assets/images/flag.svg"></div>
-           <div v-else class="cell--normal"></div>
+           <div v-else class="cell--normal" v-on:mousedown.left="openCell(cell.position)" @click.right="flagCell( $event, cell.position)"></div>
        </a>     
     `,
     props: ['cell'],
+    methods: {
+        openCell: function (position) {
+            console.log("openCell");
+            window.gridController.sendOpenCell(position);
+        },
+        flagCell: function (event,position) {
+            console.log("flagCell");
+            event.preventDefault();
+            window.gridController.sendFlagCell(position);
+        },
+    }
 });
 

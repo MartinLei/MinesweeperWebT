@@ -227,6 +227,20 @@ class GridController {
             });
         }
     }
+
+    sendOpenCell(position){
+        this.wsController.send({
+            action: "openCell",
+            position: position
+        });
+    }
+
+    sendFlagCell(position){
+        this.wsController.send({
+            action: "toggleFlag",
+            position: position
+        });
+    }
 }
 
 class GameControls {
