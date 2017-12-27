@@ -145,6 +145,12 @@ body {
   height: 80px;
   margin: 5px;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+
   &--mine {
     &:extend(.cell);
     background-color: #e53935;
@@ -153,11 +159,17 @@ body {
   &--flagged {
     &:extend(.cell);
     background-color: #9c27b0;
+
+    img{
+      max-width:80%;
+      max-height:80%;
+    }
   }
 
   &--number {
     &:extend(.cell);
-    background-color: #24b02d;
+    background-color: #2438b0;
+    font-size: 1.5rem;
   }
 
   &--normal {
@@ -166,18 +178,10 @@ body {
   }
 }
 
+
+
 .field_row{
   float: left;
   background-color: #00e671;
 }
 
-
-.row {
-  width: calc(100% / 6 - 10px);
-  height: calc(100% / 4 - 10px);
-  margin: 5px;
-  background-color: silver;
-  border-radius: 4px;
-  border: 1px solid gray;
-  float: left;
-}

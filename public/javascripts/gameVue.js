@@ -60,7 +60,7 @@ Vue.component('minesweeper-controls', {
 Vue.component('minesweeper-field', {
     template: `
     <div class="gamecontainer">
-        <div class="field">
+        <a class="field">
 
             <a class="field_row" v-for="aRow in field">
               <a  v-for="aCell in aRow">
@@ -68,7 +68,7 @@ Vue.component('minesweeper-field', {
               </a>
             </a>
          
-        </div>
+        </a>
          <a>FIELD://</a>
          <a>{{field}}</a>
          <a>END</a>
@@ -84,8 +84,8 @@ Vue.component('minesweeper-cell', {
            <div v-else class="cell--number">{{cell.surroundingMines}}</div>
        </a>
        <a v-else >
-           <div v-if="cell.isFlagged" class="cell--flagged">flag</div>
-           <div v-else class="cell--normal">n</div>
+           <div v-if="cell.isFlagged" class="cell--flagged"><img src="/assets/images/flag.svg"></div>
+           <div v-else class="cell--normal"></div>
        </a>     
     `,
     props: ['cell'],
