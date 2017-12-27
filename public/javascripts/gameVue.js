@@ -59,11 +59,35 @@ Vue.component('minesweeper-controls', {
 
 Vue.component('minesweeper-field', {
     template: `
-        <div class="gamecontainer">
+    <div class="gamecontainer">
+        <div class="field">
+
+            <a class="field_row" v-for="aRow in field">
+              <a  v-for="aCell in aRow">
+               <minesweeper-cell :cell="aCell" ></minesweeper-cell>
+              </a>
+            </a>
+         
+        </div>
          <a>FIELD://</a>
          <a>{{field}}</a>
          <a>END</a>
-        </div>
+    </div>
     `,
     props: ['field'],
 });
+
+Vue.component('minesweeper-cell', {
+    template: `
+       <a v-if="cell.isRevealed">
+           <div v-if="cell.hasMine" class="cell--mine">mine</div>
+           <div v-else class="cell--number">{{cell.surroundingMines}}</div>
+       </a>
+       <a v-else >
+           <div v-if="cell.isFlagged" class="cell--flagged">flag</div>
+           <div v-else class="cell--normal">n</div>
+       </a>     
+    `,
+    props: ['cell'],
+});
+
