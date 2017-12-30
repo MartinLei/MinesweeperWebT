@@ -60,7 +60,7 @@ Vue.component('minesweeper-controls', {
 Vue.component('minesweeper-field', {
     template: `
     <div class="field-container text-center">
-        <a class="field  card-2">
+        <a class="field card-2" @click.right="disableRightClickMenu( $event)">
 
             <a class="field-row" v-for="aRow in field">
               <a v-for="aCell in aRow">
@@ -72,6 +72,11 @@ Vue.component('minesweeper-field', {
     </div>
     `,
     props: ['field'],
+    methods:{
+        disableRightClickMenu: function (event) {
+            event.preventDefault();
+        }
+    }
 });
 
 Vue.component('minesweeper-cell', {
