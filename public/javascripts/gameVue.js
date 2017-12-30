@@ -60,7 +60,7 @@ Vue.component('minesweeper-controls', {
 Vue.component('minesweeper-field', {
     template: `
     <div class="field-container text-center">
-        <a class="field">
+        <a class="field  card-2">
 
             <a class="field-row" v-for="aRow in field">
               <a v-for="aCell in aRow">
@@ -77,8 +77,8 @@ Vue.component('minesweeper-field', {
 Vue.component('minesweeper-cell', {
     template: `
        <a v-if="cell.isRevealed">
-           <div v-if="cell.hasMine" class="cell--mine">mine</div>
-           <div v-else class="cell--number">{{cell.surroundingMines}}</div>
+           <div v-if="cell.hasMine" class="cell--mine"><img src="/assets/images/mine.png"></div>
+           <div v-else class="cell--number" v-bind:class="getNumberColor(cell.surroundingMines)">{{cell.surroundingMines}}</div>
        </a>
        <a v-else >
            <div v-if="cell.isFlagged" class="cell--flagged"><img src="/assets/images/flag.svg"></div>
@@ -95,6 +95,9 @@ Vue.component('minesweeper-cell', {
             console.log("flagCell");
             event.preventDefault();
             window.gridController.sendFlagCell(position);
+        },
+        getNumberColor: function(numberOfSurroundMines){
+            return 'cell--number--' + numberOfSurroundMines;
         },
     }
 });
