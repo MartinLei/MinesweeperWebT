@@ -88,11 +88,9 @@ Vue.component('minesweeper-cell', {
     props: ['cell'],
     methods: {
         openCell: function (position) {
-            console.log("openCell");
             window.gridController.sendOpenCell(position);
         },
         flagCell: function (event,position) {
-            console.log("flagCell");
             event.preventDefault();
             window.gridController.sendFlagCell(position);
         },
