@@ -86,7 +86,7 @@ Vue.component('minesweeper-cell', {
            <div v-else class="cell--number" v-bind:class="getNumberColor(cell.surroundingMines)">{{cell.surroundingMines}}</div>
        </a>
        <a v-else >
-           <div v-if="cell.isFlagged" class="cell--flagged"><img src="/assets/images/flag.svg"></div>
+           <div v-if="cell.isFlagged" class="cell--flagged" @click.right="flagCell( $event, cell.position)"><img src="/assets/images/flag.svg"></div>
            <div v-else class="cell--normal" v-on:mousedown.left="openCell(cell.position)" @click.right="flagCell( $event, cell.position)"></div>
        </a>     
     `,
