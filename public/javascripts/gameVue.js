@@ -59,19 +59,16 @@ Vue.component('minesweeper-controls', {
 
 Vue.component('minesweeper-field', {
     template: `
-    <div class="gamecontainer">
+    <div class="field-container text-center">
         <a class="field">
 
-            <a class="field_row" v-for="aRow in field">
-              <a  v-for="aCell in aRow">
+            <a class="field-row" v-for="aRow in field">
+              <a v-for="aCell in aRow">
                <minesweeper-cell :cell="aCell" ></minesweeper-cell>
               </a>
             </a>
          
         </a>
-         <a>FIELD://</a>
-         <a>{{field}}</a>
-         <a>END</a>
     </div>
     `,
     props: ['field'],

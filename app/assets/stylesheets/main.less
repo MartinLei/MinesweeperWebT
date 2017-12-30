@@ -130,22 +130,23 @@ body {
 
 }
 
+.field-container{
+  overflow-x: auto;
+}
+
 .field {
-  background-color: #000;
+  background-color: #33691e;
   display: inline-grid;
 
   padding: 20px;
 }
 
-.field_row{
-  float: left;
-  display: inline-flex;
+.field-row{
   background-color: #00e671;
+  display: inline-flex;
 }
 
 .cell{
-  float: left;
-
   background-color: #3d5afe;
   width: 40px;
   height: 40px;
@@ -154,8 +155,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-
-
 
   &--mine {
     &:extend(.cell);
