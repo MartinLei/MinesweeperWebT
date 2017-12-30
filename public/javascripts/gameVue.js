@@ -17,7 +17,7 @@ $(document).ready(function () {
 
 Vue.component('minesweeper-controls', {
     template: `
-        <div class="gamecontainer">
+        <div class="game-controls text-center">
            <button class="btn btn-primary" v-on:click="newGame">New Game</button>
            
            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" 
