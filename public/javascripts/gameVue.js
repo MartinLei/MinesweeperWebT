@@ -5,7 +5,8 @@ $(document).ready(function () {
         el: '#minesweeper-game',
         data: function () {
             return {
-                wsField: 0
+                wsField: 0,
+                wsState: 0
             }
         }
     });
@@ -105,3 +106,13 @@ Vue.component('minesweeper-cell', {
     }
 });
 
+Vue.component('minesweeper-state', {
+    template: `
+    <div class="text-center">
+       <div v-if="state === 'FirstClick'" class="game-status alert alert-info">Click on one of the green tiles (:</div>
+       <div v-else-if="state === 'Win'" class="game-status alert alert-success">Gorgeous, you win :)</div>
+       <div v-else-if="state === 'Lose'" class="game-status alert alert-danger">Oh dear, you lose :(</div>
+    </div>
+    `,
+    props: ['state'],
+});

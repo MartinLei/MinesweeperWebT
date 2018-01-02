@@ -96,7 +96,7 @@ class GridController {
     }
 
     updateVueGrid(grid) {
-        // set grid in vue
+        // set grid on vue
         if (this.vueInstance !== null) {
             console.log("set grid on vue");
             Vue.set(this.vueInstance, "wsField", grid)
@@ -106,6 +106,15 @@ class GridController {
     }
 
     updateStatus(gameState) {
+        // set state on vue
+        if (this.vueInstance !== null) {
+            console.log("set state on vue");
+            Vue.set(this.vueInstance, "wsState", gameState)
+        } else {
+            console.log("ERROR: vue not set");
+        }
+
+
         if (gameState === "Win") {
             this.statusRoot.empty();
 
