@@ -83,15 +83,12 @@ class GridController {
 
         this.wsController.send({action: "join"});
 
-        this.statusRoot = $(".game-status").first();
-
         let vueInstance;
     }
 
 
     onMessage(minesweeperEvent) {
         this.updateStatus(minesweeperEvent.gameState);
-
         this.updateVueGrid(minesweeperEvent.grid);
     }
 
@@ -112,29 +109,6 @@ class GridController {
             Vue.set(this.vueInstance, "wsState", gameState)
         } else {
             console.log("ERROR: vue not set");
-        }
-
-
-        if (gameState === "Win") {
-            this.statusRoot.empty();
-
-            this.statusRoot.append(
-                $("<div/>", {
-                    "class": "alert alert-success",
-                    "role": "alert",
-                }).append("You win!")
-            )
-        } else if (gameState === "Lose") {
-            this.statusRoot.empty();
-
-            this.statusRoot.append(
-                $("<div/>", {
-                    "class": "alert alert-danger",
-                    "role": "alert",
-                }).append("Game over!")
-            )
-        } else {
-            this.statusRoot.empty()
         }
     }
 
