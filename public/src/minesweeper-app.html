@@ -1,8 +1,10 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="./ws-element.html">
+<ws-element url="ws://localhost:9000/ws"></ws-element>
 
 <dom-module id="minesweeper-app">
   <template>
-    <style>
+  <style>
       :host {
         display: block;
       }
@@ -12,6 +14,7 @@
   </template>
 
   <script>
+
     /**
      * @customElement
      * @polymer
@@ -22,7 +25,7 @@
         return {
           prop1: {
             type: String,
-            value: 'minesweeper-app'
+            value: 'minesweeper-app',
           }
         };
       }
