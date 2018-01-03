@@ -6,38 +6,45 @@
   </template>
 </dom-module>
 <script type="text/javascript">
-    (function() {
-        Polymer({
-            is: "ws-element",
-            socket: null,
-            properties: {
+    class XCustom extends Polymer.Element {
+
+        static get is() {return 'ws-element'}
+        static get properties() {
+            return {
                 url: {
                     type: String
-                }
-            },
-            ready: function () {
-                this.socket = new WebSocket(this.url);
-                this.socket.onerror = this.onError.bind(this);
-                this.socket.onopen = this.onOpen.bind(this);
-                this.socket.onmessage = this.onMessage.bind(this);
-            },
-            onError: function (error) {
-                this.fire('onerror', error);
-            },
-            onOpen: function (event) {
-                console.log("Open ws connection ");
-                this.fire('onopen');
-            },
-            onMessage: function (event) {
-                console.log(event.data);
-                this.fire('onmessage', event.data);
-            },
-            send: function (message) {
-                this.socket.send(message);
-            },
-            close: function () {
-                this.socket.close();
+                },
             }
-        })
-    })();
+        }
+
+
+
+        ready () {
+            this.socket = new WebSocket(this.url);
+            this.socket.onerror = this.onError.bind(this);
+            this.socket.onopen = this.onOpen.bind(this);
+            this.socket.onmessage = this.onMessage.bind(this);
+        }
+        onError (error) {
+             console.log("error");
+        }
+        onOpen (event) {
+            console.log("Open ws connection ");
+            this.dispatchEvent(new CustomEvent('kick', {detail: {kicked: true}}));
+        }
+        onMessage (event) {
+            console.log(event.data);
+        }
+        send (message) {
+            this.socket.send(message);
+        }
+        close () {
+            this.socket.close();
+        }
+
+        handleClick(e) {
+            this.dispatchEvent(new CustomEvent('kick', {detail: {kicked: true}}));
+        }
+    }
+    customElements.define(XCustom.is, XCustom);
 </script>

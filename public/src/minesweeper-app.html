@@ -1,9 +1,11 @@
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
 
 <link rel="import" href="./ws-element.html">
-<ws-element url="ws://localhost:9000/ws"></ws-element>
 
 <dom-module id="minesweeper-app">
+  <ws-element url="ws://localhost:9000/ws"></ws-element>
+
+
   <template>
   <style>
       :host {
@@ -14,6 +16,7 @@
     <a>test{{data}}</a>
 
     <paper-button raised class="indigo">raised</paper-button>
+    <button class="btn btn-primary" on-click="test">New Game</button>
 
   </template>
 
@@ -39,12 +42,18 @@
       }
 
 
-      a (){
+      test (){
           var t = document.querySelector('#minesweeper-app');
-          t.data ='1';
+          t.data='1';
       }
     }
+
+
+
 
     window.customElements.define(MinesweeperApp.is, MinesweeperApp);
   </script>
 </dom-module>
+<script>document.querySelector('ws-element').addEventListener('kick', function (e) {
+    console.log(e.detail.kicked); // true
+})</script>
