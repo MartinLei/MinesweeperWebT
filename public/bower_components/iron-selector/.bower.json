@@ -63,6 +63,6 @@
     "commit": "01dd7ae23d0330c470058ccd95b8cf77a6525ddd"
   },
   "_source": "https://github.com/PolymerElements/iron-selector.git",
-  "_target": "^2.0.0",
+  "_target": "1 - 2",
   "_originalSource": "PolymerElements/iron-selector"
 }

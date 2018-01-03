@@ -1,0 +1,7 @@
+{
+  "name": "minesweeper",
+  "short_name": "minesweeper",
+  "description": "minesweeper",
+  "start_url": "/",
+  "display": "standalone"
+}
