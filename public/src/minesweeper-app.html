@@ -1,0 +1,33 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="minesweeper-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+    <a>test</a>
+  </template>
+
+  <script>
+    /**
+     * @customElement
+     * @polymer
+     */
+    class MinesweeperApp extends Polymer.Element {
+      static get is() { return 'minesweeper-app'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'minesweeper-app'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(MinesweeperApp.is, MinesweeperApp);
+  </script>
+</dom-module>
