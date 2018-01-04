@@ -30,4 +30,10 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   def history = Action {
     Ok(views.html.history())
   }
+
+  def polymerGame = Action{
+    val tuiAsString: String = tuiInstance.getTUIAsString
+    Ok(views.html.polymerGame(gameController.getGrid, tuiAsString))
+    //Ok(views.html.polymerGame());
+  }
 }
