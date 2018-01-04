@@ -93,8 +93,17 @@ class GridController {
     this.setGridCss(minesweeperEvent.settings);
     this.updateGrid(minesweeperEvent.grid);
     this.updateStatus(minesweeperEvent.gameState);
+
+    this.setPolymerData(minesweeperEvent);
   }
 
+  setPolymerData(minesweeperEvent){
+      let polymerElement = document.querySelector('polymer-minesweeper-app');
+
+      polymerElement.state = minesweeperEvent.gameState;
+      polymerElement.grid = minesweeperEvent.grid;
+      polymerElement.test(minesweeperEvent.grid);
+  }
 
   setGridCss(settings) {
     this.gridRoot.css({

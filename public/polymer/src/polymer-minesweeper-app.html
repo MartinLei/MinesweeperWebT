@@ -7,7 +7,8 @@
         display: block;
       }
     </style>
-    <h2>Hello [[prop1]]!</h2>
+    <h2>Hello [[state]]!</h2>
+
 
   </template>
 
@@ -20,11 +21,19 @@
           static get is() { return 'polymer-minesweeper-app'; }
           static get properties() {
               return {
-                  prop1: {
-                      type: String,
-                      value: 'k-app'
-                  }
+                  state: {
+                      type: String
+                  },
+                  grid:{
+
+                  },
               };
+          }
+
+          test(gridcopy){
+              console.log("hallo test");
+              console.log(gridcopy);
+
           }
       }
 
