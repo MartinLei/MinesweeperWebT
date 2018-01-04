@@ -1,0 +1,86 @@
+<link rel="import" href="../../polymer/bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../polymer/bower_components/paper-button/paper-button.html">
+<link rel="import" href="../polymer/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+
+<dom-module id="polymer-minesweeper-control">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+      .paperbutton {
+        background: blue;
+        color: white;
+      }
+    </style>
+    <h2>Control [[state]]!</h2>
+    <paper-button raised class="paperbutton" on-click="newGame">New Game</paper-button>
+
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Change Difficulty</button>
+    <div class="dropdown-menu" aria-labelledby="dropdown-change-difficulty">
+      <a class="dropdown-item" href="#" on-click="changeDifficultyEasy">Easy</a>
+      <a class="dropdown-item" href="#" on-click="changeDifficultyIntermediate">Intermediate</a>
+      <a class="dropdown-item" href="#" on-click="changeDifficultyHard">Hard</a>
+    </div>
+
+    <paper-dropdown-menu label="Dinosaurs">
+      <paper-listbox slot="dropdown-content" selected="1">
+        <paper-item>allosaurus</paper-item>
+        <paper-item>brontosaurus</paper-item>
+        <paper-item>carcharodontosaurus</paper-item>
+        <paper-item>diplodocus</paper-item>
+      </paper-listbox>
+    </paper-dropdown-menu>
+
+
+  </template>
+
+  <script>
+      /**
+       * @customElement
+       * @polymer
+       */
+      class PolymerMinesweeperControl extends Polymer.Element {
+          static get is() { return 'polymer-minesweeper-control'; }
+          static get properties() {
+              return {
+                  state: {
+                      type: String
+                  },
+                  grid:{
+
+                  },
+              };
+          }
+
+          newGame() {
+              window.gameControls.newGame();
+          }
+          changeDifficultyEasy() {
+              window.gameControls.changeDifficulty({
+                  "height": 8,
+                  "width": 8,
+                  "mines": 10
+              })
+          }
+          changeDifficultyIntermediate() {
+              window.gameControls.changeDifficulty({
+                  "height": 16,
+                  "width": 16,
+                  "mines": 40
+              })
+          }
+          changeDifficultyHard() {
+              window.gameControls.changeDifficulty({
+                  "height": 16,
+                  "width": 30,
+                  "mines": 99
+              })
+          }
+
+      }
+
+      window.customElements.define(PolymerMinesweeperControl.is, PolymerMinesweeperControl);
+  </script>
+</dom-module>
