@@ -14,17 +14,20 @@
         @apply(--layout-horizontal);
         @apply(--layout-center-justified);
         margin: 5px;
+        position: absolute;
+        top: 25%;
+        left: 50%;
       }
 
       .box {
         padding: 20px;
         color: white;
         margin: 15px;
-        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-      }
+        position: relative;
+        left: -50%;
+        top: -50%;
 
-      .color-box-info {
-        background-color: #1d6fb4;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
       }
 
       .color-box-win {
@@ -37,10 +40,6 @@
     </style>
 
     <div class="container">
-
-      <template is="dom-if" if="{{_isEqualTo(state, 'FirstClick')}}">
-        <div class="box color-box-info">Click on the tiles to start (:</div>
-      </template>
 
       <template is="dom-if" if="{{_isEqualTo(state, 'Win')}}">
         <div class="box color-box-win">Gorgeous, you win :)</div>
