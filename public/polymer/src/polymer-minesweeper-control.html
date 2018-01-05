@@ -6,10 +6,12 @@
 <link rel="import" href="../../polymer/bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../polymer/bower_components/neon-animation/web-animations.html">
 
+<link rel="import" href="../../polymer/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
 
 <dom-module id="polymer-minesweeper-control">
   <template>
-    <style>
+    <style include="iron-flex iron-flex-alignment">
       :host {
         display: block;
       }
@@ -18,9 +20,15 @@
         background: blue;
         color: white;
       }
+
+      .container {
+        @apply(--layout-horizontal);
+        @apply(--layout-center-justified);
+        margin: 5px;
+      }
     </style>
 
-    <div>
+    <div class="container">
       <paper-button raised class="paperbutton" on-click="newGame">New Game</paper-button>
 
       <paper-dropdown-menu label="Change Difficulty">
