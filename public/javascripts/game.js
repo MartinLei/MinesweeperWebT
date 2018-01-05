@@ -102,7 +102,6 @@ class GridController {
 
       polymerElement.state = minesweeperEvent.gameState;
       polymerElement.grid = minesweeperEvent.grid;
-      polymerElement.test(minesweeperEvent.grid);
   }
 
   setGridCss(settings) {
