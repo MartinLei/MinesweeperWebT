@@ -27,7 +27,8 @@
           static get properties() {
               return {
                   state: {
-                      type: String
+                      type: String,
+                      value: ""
                   },
                   grid:{
 
@@ -35,11 +36,6 @@
               };
           }
 
-          test(gridcopy){
-              console.log("hallo test");
-              console.log(gridcopy);
-
-          }
       }
 
       window.customElements.define(PolymerMinesweeperApp.is, PolymerMinesweeperApp);
