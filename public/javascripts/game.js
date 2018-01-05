@@ -100,6 +100,9 @@ class GridController {
   setPolymerData(minesweeperEvent){
       let polymerElement = document.querySelector('polymer-minesweeper-app');
 
+      if(polymerElement === null)
+          return;
+
       polymerElement.state = minesweeperEvent.gameState;
       polymerElement.grid = minesweeperEvent.grid;
   }
