@@ -36,4 +36,8 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.polymerGame(gameController.getGrid, tuiAsString))
     //Ok(views.html.polymerGame());
   }
+
+  def vueGame = Action{
+    Ok(views.html.vueGame());
+  }
 }

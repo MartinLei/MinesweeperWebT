@@ -7,6 +7,7 @@ GET        /minesweeper/:command        controllers.HomeController.minesweeper(c
 GET        /history                     controllers.HomeController.history
 
 GET        /polymer                     controllers.HomeController.polymerGame
+GET        /vue                     controllers.HomeController.vueGame
 
 
 GET        /ws                          controllers.WSController.ws
