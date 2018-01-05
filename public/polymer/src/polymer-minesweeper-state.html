@@ -20,11 +20,11 @@
         padding: 20px;
         color: white;
         margin: 15px;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
       }
 
       .color-box-info {
-        background-color: #2196F3;
+        background-color: #1d6fb4;
       }
 
       .color-box-win {
@@ -39,7 +39,7 @@
     <div class="container">
 
       <template is="dom-if" if="{{_isEqualTo(state, 'FirstClick')}}">
-        <div class="box color-box-info">Click on one of the green tiles (:</div>
+        <div class="box color-box-info">Click on the tiles to start (:</div>
       </template>
 
       <template is="dom-if" if="{{_isEqualTo(state, 'Win')}}">
