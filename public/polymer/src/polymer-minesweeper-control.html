@@ -1,10 +1,10 @@
 <link rel="import" href="../../polymer/bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../polymer/bower_components/paper-button/paper-button.html">
+
 <link rel="import" href="../../polymer/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../../polymer/bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../../polymer/bower_components/paper-item/paper-item.html">
 <link rel="import" href="../../polymer/bower_components/neon-animation/web-animations.html">
-
 
 
 <dom-module id="polymer-minesweeper-control">
@@ -13,45 +13,44 @@
       :host {
         display: block;
       }
+
       .paperbutton {
         background: blue;
         color: white;
       }
     </style>
-    <h2>Control [[state]]!</h2>
-    <paper-button raised class="paperbutton" on-click="newGame">New Game</paper-button>
 
-    <paper-dropdown-menu label="Change Difficulty">
-      <paper-listbox slot="dropdown-content" class="dropdown-content">
-        <paper-item on-click="changeDifficultyEasy">Easy</paper-item>
-        <paper-item on-click="changeDifficultyIntermediate">Intermediate</paper-item>
-        <paper-item on-click="changeDifficultyHard">Hard</paper-item>
-      </paper-listbox>
-    </paper-dropdown-menu>
+    <div>
+      <paper-button raised class="paperbutton" on-click="newGame">New Game</paper-button>
+
+      <paper-dropdown-menu label="Change Difficulty">
+        <paper-listbox slot="dropdown-content" class="dropdown-content">
+          <paper-item on-click="changeDifficultyEasy">Easy</paper-item>
+          <paper-item on-click="changeDifficultyIntermediate">Intermediate</paper-item>
+          <paper-item on-click="changeDifficultyHard">Hard</paper-item>
+        </paper-listbox>
+      </paper-dropdown-menu>
+    </div>
 
   </template>
-
   <script>
       /**
        * @customElement
        * @polymer
        */
       class PolymerMinesweeperControl extends Polymer.Element {
-          static get is() { return 'polymer-minesweeper-control'; }
-          static get properties() {
-              return {
-                  state: {
-                      type: String
-                  },
-                  grid:{
+          static get is() {
+              return 'polymer-minesweeper-control';
+          }
 
-                  },
-              };
+          static get properties() {
+              return {};
           }
 
           newGame() {
               window.gameControls.newGame();
           }
+
           changeDifficultyEasy() {
               window.gameControls.changeDifficulty({
                   "height": 8,
@@ -59,6 +58,7 @@
                   "mines": 10
               })
           }
+
           changeDifficultyIntermediate() {
               window.gameControls.changeDifficulty({
                   "height": 16,
@@ -66,6 +66,7 @@
                   "mines": 40
               })
           }
+
           changeDifficultyHard() {
               window.gameControls.changeDifficulty({
                   "height": 16,
