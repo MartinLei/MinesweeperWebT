@@ -15,12 +15,43 @@
         @apply(--layout-center-justified);
         margin: 5px;
       }
+
+      .box {
+        padding: 20px;
+        background-color: #2196F3;
+        color: white;
+        margin: 15px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      }
+
+      .color-box-info {
+        background-color: #2196F3;
+      }
+
+      .color-box-win {
+        background-color: #4CAF50;
+      }
+
+      .color-box-lose {
+        background-color: #f44336;
+      }
     </style>
 
     <div class="container">
-      sate
-    </div>
 
+      <template is="dom-if" if="{{_isEqualTo(state, 'FirstClick')}}">
+        <div class="box color-box-info">Click on one of the green tiles (:</div>
+      </template>
+
+      <template is="dom-if" if="{{_isEqualTo(state, 'Win')}}">
+        <div class="box color-box-win">Gorgeous, you win :)</div>
+      </template>
+
+      <template is="dom-if" if="{{_isEqualTo(state, 'Lose')}}">
+        <div class="box color-box-lose">Oh dear, you lose :(</div>
+      </template>
+
+    </div>
 
   </template>
   <script>
@@ -34,7 +65,15 @@
           }
 
           static get properties() {
-              return {};
+              return {
+                  state: {
+                      type: String
+                  }
+              };
+          }
+
+          _isEqualTo(title, string) {
+              return title == string;
           }
       }
 
