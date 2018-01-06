@@ -1,10 +1,8 @@
 @import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
 @import controllers.AssetsFinder
-@import org.webjars.play.WebJarsUtil
 @import play.api.i18n.Messages
-@import play.api.mvc.RequestHeader
 
-@(socialProviders: SocialProviderRegistry)(implicit request: RequestHeader, messages: Messages, webJarsUtil: WebJarsUtil, assets: AssetsFinder)
+@(socialProviders: SocialProviderRegistry)(implicit messages: Messages, assets: AssetsFinder)
 
 @main(messages("sign.in.title")) {
     <fieldset class="col-md-6 col-md-offset-3">
