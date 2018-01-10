@@ -6,6 +6,10 @@ GET        /minesweeper                 controllers.HomeController.minesweeper(c
 GET        /minesweeper/:command        controllers.HomeController.minesweeper(command)
 GET        /history                     controllers.HomeController.history
 
+GET        /polymer                     controllers.HomeController.polymerGame
+GET        /vue                     controllers.HomeController.vueGame
+
+
 GET        /ws                          controllers.WSController.ws
 
 # Map static resources from the /public folder to the /assets URL path

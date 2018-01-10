@@ -1,0 +1,97 @@
+<link rel="import" href="../../polymer/bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../polymer/bower_components/paper-button/paper-button.html">
+
+<link rel="import" href="../../polymer/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../../polymer/bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../../polymer/bower_components/paper-item/paper-item.html">
+<link rel="import" href="../../polymer/bower_components/neon-animation/web-animations.html">
+
+<link rel="import" href="../../polymer/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+
+<dom-module id="polymer-minesweeper-control">
+  <template>
+    <style include="iron-flex iron-flex-alignment">
+      :host {
+        display: block;
+      }
+
+      .paper-button {
+        background: #2196F3;
+        color: white;
+        margin-right: 20px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+      }
+      .paper-button:hover {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+      }
+
+      .container {
+        @apply(--layout-horizontal);
+        @apply(--layout-center-justified);
+        margin: 20px;
+      }
+    </style>
+
+    <div class="container">
+       <paper-button raised class="paper-button" on-click="newGame">New Game</paper-button>
+
+        <paper-dropdown-menu label="Change Difficulty">
+          <paper-listbox slot="dropdown-content" class="dropdown-content">
+            <paper-item on-click="changeDifficultyEasy">Easy</paper-item>
+            <paper-item on-click="changeDifficultyIntermediate">Intermediate</paper-item>
+            <paper-item on-click="changeDifficultyHard">Hard</paper-item>
+          </paper-listbox>
+        </paper-dropdown-menu>
+
+    </div>
+
+  </template>
+  <script>
+      /**
+       * @customElement
+       * @polymer
+       */
+      class PolymerMinesweeperControl extends Polymer.Element {
+          static get is() {
+              return 'polymer-minesweeper-control';
+          }
+
+          static get properties() {
+              return {};
+          }
+
+          newGame() {
+              window.gameControls.newGame();
+          }
+
+          changeDifficultyEasy() {
+              window.gameControls.changeDifficulty({
+                  "height": 8,
+                  "width": 8,
+                  "mines": 10
+              })
+          }
+
+          changeDifficultyIntermediate() {
+              window.gameControls.changeDifficulty({
+                  "height": 16,
+                  "width": 16,
+                  "mines": 40
+              })
+          }
+
+          changeDifficultyHard() {
+              window.gameControls.changeDifficulty({
+                  "height": 16,
+                  "width": 30,
+                  "mines": 99
+              })
+          }
+
+      }
+
+      window.customElements.define(PolymerMinesweeperControl.is, PolymerMinesweeperControl);
+  </script>
+</dom-module>

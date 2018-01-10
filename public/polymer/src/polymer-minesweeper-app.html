@@ -1,0 +1,43 @@
+<link rel="import" href="../../polymer/bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../polymer/src/polymer-minesweeper-control.html">
+<link rel="import" href="../../polymer/src/polymer-minesweeper-state.html">
+
+<dom-module id="polymer-minesweeper-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+
+    <polymer-minesweeper-control></polymer-minesweeper-control>
+
+    <polymer-minesweeper-state state="[[state]]"></polymer-minesweeper-state>
+
+  </template>
+
+  <script>
+      /**
+       * @customElement
+       * @polymer
+       */
+      class PolymerMinesweeperApp extends Polymer.Element {
+          static get is() { return 'polymer-minesweeper-app'; }
+          static get properties() {
+              return {
+                  state: {
+                      type: String,
+                      value: ""
+                  },
+                  grid:{
+
+                  },
+              };
+          }
+
+      }
+
+      window.customElements.define(PolymerMinesweeperApp.is, PolymerMinesweeperApp);
+  </script>
+</dom-module>

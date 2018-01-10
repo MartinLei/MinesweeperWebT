@@ -1,0 +1,80 @@
+<link rel="import" href="../../polymer/bower_components/polymer/polymer-element.html">
+
+<link rel="import" href="../../polymer/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+
+
+<dom-module id="polymer-minesweeper-state">
+  <template>
+    <style include="iron-flex iron-flex-alignment">
+      :host {
+        display: block;
+      }
+
+      .container {
+        @apply(--layout-horizontal);
+        @apply(--layout-center-justified);
+        margin: 5px;
+        position: absolute;
+        top: 25%;
+        left: 50%;
+      }
+
+      .box {
+        padding: 20px;
+        color: white;
+        margin: 15px;
+        position: relative;
+        left: -50%;
+        top: -50%;
+
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+      }
+
+      .color-box-win {
+        background-color: #4CAF50;
+      }
+
+      .color-box-lose {
+        background-color: #f44336;
+      }
+    </style>
+
+    <div class="container">
+
+      <template is="dom-if" if="{{_isEqualTo(state, 'Win')}}">
+        <div class="box color-box-win">Gorgeous, you win :)</div>
+      </template>
+
+      <template is="dom-if" if="{{_isEqualTo(state, 'Lose')}}">
+        <div class="box color-box-lose">Oh dear, you lose :(</div>
+      </template>
+
+    </div>
+
+  </template>
+  <script>
+      /**
+       * @customElement
+       * @polymer
+       */
+      class PolymerMinesweeperState extends Polymer.Element {
+          static get is() {
+              return 'polymer-minesweeper-state';
+          }
+
+          static get properties() {
+              return {
+                  state: {
+                      type: String
+                  }
+              };
+          }
+
+          _isEqualTo(title, string) {
+              return title == string;
+          }
+      }
+
+      window.customElements.define(PolymerMinesweeperState.is, PolymerMinesweeperState);
+  </script>
+</dom-module>

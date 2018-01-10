@@ -1,0 +1,13 @@
+
+@main("Vue") {
+  <script src="@routes.Assets.versioned("vue/vue.js")" ></script>
+  <script src="@routes.Assets.versioned("/vue/game.js")" type="text/javascript"></script>
+
+  <script src="@routes.Assets.versioned("vue/gameVue.js")" ></script>
+
+  <div id="minesweeper-game" class="pagecontainer">
+    <minesweeper-controls></minesweeper-controls>
+    <minesweeper-field :field="wsField"></minesweeper-field>
+    <minesweeper-state :state="wsState"></minesweeper-state>
+  </div>
+}
