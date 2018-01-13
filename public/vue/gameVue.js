@@ -61,8 +61,9 @@ Vue.component('minesweeper-controls', {
 Vue.component('minesweeper-field', {
     template: `
     <div class="field-container text-center">
-        <a class="field box-shadow" @click.right="disableRightClickMenu( $event)">
-
+        <a v-if="field === null" class="field box-shadow" >Please, refresh side :/</a>
+        <a v-if="field !== null" class="field box-shadow" @click.right="disableRightClickMenu( $event)">
+ 
             <a class="field-row" v-for="aRow in field">
               <a v-for="aCell in aRow">
                <minesweeper-cell :cell="aCell" ></minesweeper-cell>
