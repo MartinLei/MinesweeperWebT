@@ -13,4 +13,4 @@ libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2
 libraryDependencies += "com.h2database" % "h2" % "1.4.196"
 libraryDependencies += "io.spray" %%  "spray-json" % "1.3.3"
 
-unmanagedJars in Compile += file("../MinesweeperSoEn/build/libs/MinesweeperSoEn-all.jar")
+unmanagedJars in Compile += file("app/minesweeperLib/MinesweeperSoEn-all.jar")
