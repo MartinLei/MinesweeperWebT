@@ -277,8 +277,6 @@ $(document).ready(() => {
         wsType = "wss://";
         console.log("We running on heroku at: " + location.host);
     }
-
-
     let gridController = new GridController(wsType + location.host + "/ws");
     let gameControls = new GameControls(gridController.wsController);
 

@@ -61,8 +61,7 @@ Vue.component('minesweeper-controls', {
 Vue.component('minesweeper-field', {
     template: `
     <div class="field-container text-center">
-        <a v-if="field === null" class="field box-shadow" >Please, refresh side :/</a>
-        <a v-if="field !== null" class="field box-shadow" @click.right="disableRightClickMenu( $event)">
+        <a class="field box-shadow" @click.right="disableRightClickMenu( $event)">
  
             <a class="field-row" v-for="aRow in field">
               <a v-for="aCell in aRow">
@@ -74,7 +73,7 @@ Vue.component('minesweeper-field', {
     </div>
     `,
     props: ['field'],
-    methods:{
+    methods: {
         disableRightClickMenu: function (event) {
             event.preventDefault();
         }
@@ -97,11 +96,11 @@ Vue.component('minesweeper-cell', {
         openCell: function (position) {
             window.gridControllerVue.sendOpenCell(position);
         },
-        flagCell: function (event,position) {
+        flagCell: function (event, position) {
             event.preventDefault();
             window.gridControllerVue.sendFlagCell(position);
         },
-        getNumberColor: function(numberOfSurroundMines){
+        getNumberColor: function (numberOfSurroundMines) {
             return 'cell--number--' + numberOfSurroundMines;
         },
     }
