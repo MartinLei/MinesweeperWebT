@@ -12,8 +12,8 @@ $(document).ready(function () {
     });
 
     //bind to game.js
-    window.gridControllerVue.vueInstance = minesweeperGame;
-
+    window.gridControllerVue.vueInstance =
+        minesweeperGame;
 });
 
 Vue.component('minesweeper-controls', {

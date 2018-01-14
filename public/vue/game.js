@@ -79,13 +79,13 @@ class WebSocketController {
 
 class GridController {
     constructor(url) {
-        this.wsController = new WebSocketController(url, (minesweeperEvent) => this.onMessage(minesweeperEvent));
-
+        this.wsController = new WebSocketController(
+            url, (minesweeperEvent) =>
+                this.onMessage(minesweeperEvent));
         this.wsController.send({action: "join"});
 
         let vueInstance;
     }
-
 
     onMessage(minesweeperEvent) {
         this.updateStatus(minesweeperEvent.gameState);
