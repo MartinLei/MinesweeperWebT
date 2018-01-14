@@ -150,12 +150,14 @@ class GameControls {
 $(document).ready(() => {
     let wsType = "ws://";
     let devHost = "localhost:9000";
+
     if (location.host === devHost){
         console.log("We running on dev at: " + location.host);
     }else{
         wsType = "wss://";
         console.log("We running on heroku at: " + location.host);
     }
+
     let gridController = new GridController(wsType + location.host + "/ws");
     let gameControls = new GameControls(gridController.wsController);
 
