@@ -7,3 +7,4 @@ HTWG WebTech Lecture. Used play as server and [MinesweeperSoEn](https://github.c
 - Observer + Websocket
 - One User with multiple clients synced
 - Deploy on Heroku
+- Fix Bug: first WS connection gets closed directly

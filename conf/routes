@@ -1,16 +1,19 @@
 # Routes
 # ~~~~
 
-GET        /                            controllers.HomeController.index
-GET        /minesweeper                 controllers.HomeController.minesweeper(command = "")
-GET        /minesweeper/:command        controllers.HomeController.minesweeper(command)
-GET        /history                     controllers.HomeController.history
+GET        /                              controllers.HomeController.index
+GET        /minesweeper                   controllers.HomeController.minesweeper
+GET        /history                       controllers.HomeController.history
 
-GET        /polymer                     controllers.HomeController.polymerGame
-GET        /vue                     controllers.HomeController.vueGame
+GET        /polymer                       controllers.HomeController.polymerGame
+GET        /vue                           controllers.HomeController.vueGame
 
 
-GET        /ws                          controllers.WSController.ws
+GET        /ws                            controllers.WSController.ws
+
+GET        /signIn                        controllers.HomeController.signIn
+GET        /signOut                       controllers.HomeController.signOut
+GET        /authenticate/:provider        controllers.SocialAuthController.authenticate(provider)
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file                controllers.Assets.versioned(path="/public", file: Asset)
+GET        /assets/*file                  controllers.Assets.versioned(path="/public", file: Asset)

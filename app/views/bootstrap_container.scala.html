@@ -1,5 +1,25 @@
-@()(content: Html)
+@(optUser: Option[User])(content: Html)
 
+@userNavbarItem(user: User) = {
+  @{
+    user.avatarURL match {
+      case Some(url) =>
+          <img class="navbar-user-logo" style="margin" src={url} width="40" height="40" alt="" />
+      case None =>
+    }
+  }
+  <span class="navbar-text">
+  @{
+    (user.firstName, user.lastName) match {
+      case (Some(firstName), Some(lastName)) => s"$firstName $lastName"
+      case _ => "Logged in"
+    }
+  }
+  </span>
+  <li class="nav-item">
+    <a class="nav-link" href="@controllers.routes.HomeController.signOut()">Sign out</a>
+  </li>
+}
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <a class="navbar-brand" href="#">
@@ -14,7 +34,7 @@
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/minesweeper">Game</a>
+        <a class="nav-link" href="/minesweeper">jQuery Game</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/vue">Vue Game</a>
@@ -22,14 +42,24 @@
       <li class="nav-item">
         <a class="nav-link" href="/polymer">Polymer Game</a>
       </li>
-      <li class="nav-item ">
+      <li class="nav-item">
         <a class="nav-link" href="/history">History</a>
       </li>
-
+    </ul>
+    <ul class="navbar-nav">
+    @{
+      optUser match {
+        case Some(user) => userNavbarItem(user)
+        case None =>
+          <li class="nav-item">
+          <a class="nav-link" href="/signIn">Sign in</a>
+          </li>
+      }
+    }
     </ul>
   </div>
 </nav>
 
 <main role="main" class="container-fluid">
-  @content
+@content
 </main> <!-- /.container -->

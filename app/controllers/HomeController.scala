@@ -2,42 +2,66 @@ package controllers
 
 import javax.inject._
 
-import minesweeper.Minesweeper
-import minesweeper.aview.tui.TextUI
-import minesweeper.controller.impl.ControllerWrapper
+import com.mohiva.play.silhouette.api.LogoutEvent
+import com.mohiva.play.silhouette.api.Silhouette
+import com.mohiva.play.silhouette.api.actions.SecuredErrorHandler
+import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
+import play.api.i18n.I18nSupport
 import play.api.mvc._
+import utils.auth.DefaultEnv
+
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
 
 @Singleton
-class HomeController @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
-  val tuiInstance: TextUI = Minesweeper.getGlobalInjector.getInstance(classOf[TextUI])
-  val gameController: ControllerWrapper = Minesweeper.getGlobalInjector.getInstance(classOf[ControllerWrapper])
+class HomeController @Inject()
+(
+  cc: ControllerComponents,
+  socialProviderRegistry: SocialProviderRegistry,
+  silhouette: Silhouette[DefaultEnv]
+)(
+  implicit
+  assets: AssetsFinder,
+  ex: ExecutionContext
+) extends AbstractController(cc) with I18nSupport {
 
-  tuiInstance.setPrintCommands(false)
-
-  def index = Action {
-    Ok(views.html.index())
-  }
-
-  def minesweeper(command: String) = Action {
-    if (command != "") {
-      tuiInstance.processLine(command)
+  val errorHandler = new SecuredErrorHandler {
+    override def onNotAuthenticated(implicit request: RequestHeader): Future[Result] = {
+      Future.successful(Redirect("/signIn"))
     }
 
-    val tuiAsString: String = tuiInstance.getTUIAsString
-    Ok(views.html.game(gameController.getGrid, tuiAsString))
+    override def onNotAuthorized(implicit request: RequestHeader): Future[Result] = {
+      Future.successful(Redirect("/signIn"))
+    }
   }
 
-  def history = Action {
-    Ok(views.html.history())
+  def index = silhouette.UserAwareAction { implicit request =>
+    Ok(views.html.index(request.identity))
   }
 
-  def polymerGame = Action{
-    val tuiAsString: String = tuiInstance.getTUIAsString
-    Ok(views.html.polymerGame(gameController.getGrid, tuiAsString))
-    //Ok(views.html.polymerGame());
+  def minesweeper = silhouette.SecuredAction(errorHandler) { implicit request =>
+    Ok(views.html.game(Some(request.identity)))
   }
 
-  def vueGame = Action{
-    Ok(views.html.vueGame());
+  def history = silhouette.UserAwareAction { implicit request =>
+    Ok(views.html.history(request.identity))
+  }
+
+  def signIn = silhouette.UserAwareAction { implicit request =>
+      Ok(views.html.signIn(socialProviderRegistry, request.identity))
+  }
+
+  def signOut = silhouette.SecuredAction.async { implicit request =>
+    val result = Redirect(routes.HomeController.index())
+    silhouette.env.eventBus.publish(LogoutEvent(request.identity, request))
+    silhouette.env.authenticatorService.discard(request.authenticator, result)
+  }
+
+  def polymerGame = silhouette.SecuredAction(errorHandler) { implicit request =>
+    Ok(views.html.polymerGame(Some(request.identity)))
+  }
+
+  def vueGame = silhouette.SecuredAction(errorHandler) { implicit request =>
+    Ok(views.html.vueGame(Some(request.identity)))
   }
 }
