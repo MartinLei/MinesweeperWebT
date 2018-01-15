@@ -6,9 +6,6 @@ import com.mohiva.play.silhouette.api.LogoutEvent
 import com.mohiva.play.silhouette.api.Silhouette
 import com.mohiva.play.silhouette.api.actions.SecuredErrorHandler
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
-import minesweeper.Minesweeper
-import minesweeper.aview.tui.TextUI
-import minesweeper.controller.impl.ControllerWrapper
 import play.api.i18n.I18nSupport
 import play.api.mvc._
 import utils.auth.DefaultEnv
@@ -27,10 +24,6 @@ class HomeController @Inject()
   assets: AssetsFinder,
   ex: ExecutionContext
 ) extends AbstractController(cc) with I18nSupport {
-  val tuiInstance: TextUI = Minesweeper.getGlobalInjector.getInstance(classOf[TextUI])
-  val gameController: ControllerWrapper = Minesweeper.getGlobalInjector.getInstance(classOf[ControllerWrapper])
-
-  tuiInstance.setPrintCommands(false)
 
   val errorHandler = new SecuredErrorHandler {
     override def onNotAuthenticated(implicit request: RequestHeader): Future[Result] = {
@@ -46,13 +39,8 @@ class HomeController @Inject()
     Ok(views.html.index(request.identity))
   }
 
-  def minesweeper(command: String) = silhouette.SecuredAction(errorHandler) { implicit request =>
-    if (command != "") {
-      tuiInstance.processLine(command)
-    }
-
-    val tuiAsString: String = tuiInstance.getTUIAsString
-    Ok(views.html.game(tuiAsString, Some(request.identity)))
+  def minesweeper = silhouette.SecuredAction(errorHandler) { implicit request =>
+    Ok(views.html.game(Some(request.identity)))
   }
 
   def history = silhouette.UserAwareAction { implicit request =>
@@ -70,8 +58,7 @@ class HomeController @Inject()
   }
 
   def polymerGame = silhouette.SecuredAction(errorHandler) { implicit request =>
-    val tuiAsString: String = tuiInstance.getTUIAsString
-    Ok(views.html.polymerGame(tuiAsString, Some(request.identity)))
+    Ok(views.html.polymerGame(Some(request.identity)))
   }
 
   def vueGame = silhouette.SecuredAction(errorHandler) { implicit request =>

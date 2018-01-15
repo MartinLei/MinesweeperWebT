@@ -8,8 +8,13 @@ import akka.stream.Materializer
 import akka.stream.scaladsl.Flow
 import api.MinesweeperAction
 import api.MinesweeperEvent
-import minesweeper.Minesweeper
+import com.mohiva.play.silhouette.api.HandlerResult
+import com.mohiva.play.silhouette.api.Silhouette
+import minesweeper.GridFactoryProviders
+import minesweeper.MinesweeperModule
+import minesweeper.aview.tui.TextUI
 import minesweeper.controller.impl.ControllerWrapper
+import models.User
 import org.apache.log4j.Logger
 import play.api.http.websocket.BinaryMessage
 import play.api.http.websocket.CloseCodes
@@ -21,20 +26,66 @@ import play.api.libs.streams.AkkaStreams
 import play.api.mvc.WebSocket.MessageFlowTransformer
 import play.api.mvc._
 import spray.json._
+import utils.auth.DefaultEnv
 
+import scala.collection.mutable
+import scala.concurrent.Await
+import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
+import scala.concurrent.duration._
 import scala.util.Failure
 import scala.util.Success
 import scala.util.Try
 
-class WSController @Inject()(cc: ControllerComponents)(implicit system: ActorSystem, mat: Materializer) extends AbstractController(cc) {
+class WSController @Inject()
+(
+  cc: ControllerComponents,
+  silhouette: Silhouette[DefaultEnv]
+)(
+  implicit
+  system: ActorSystem,
+  mat: Materializer,
+  ec: ExecutionContext
+) extends AbstractController(cc) {
 
-  val gameController: ControllerWrapper = Minesweeper.getGlobalInjector.getInstance(classOf[ControllerWrapper])
+  val userToController: mutable.Map[User, ControllerWrapper] = mutable.WeakHashMap.empty[User, ControllerWrapper]
 
-  def ws: WebSocket = WebSocket.accept[MinesweeperAction, MinesweeperEvent] { request =>
-    ActorFlow.actorRef { out =>
-      WSActor.props(out, gameController)
+  private def createNewIndependentController() = {
+    val injector = MinesweeperModule.getInjector(GridFactoryProviders.debugEasy)
+
+    val tuiInstance: TextUI = injector.getInstance(classOf[TextUI])
+    tuiInstance.setPrintCommands(false)
+
+    injector.getInstance(classOf[ControllerWrapper])
+  }
+
+  def ws: WebSocket = WebSocket.accept[MinesweeperAction, MinesweeperEvent] { request: RequestHeader =>
+    implicit val req: Request[AnyContentAsEmpty.type] = Request(request, AnyContentAsEmpty)
+
+    val future: Future[Flow[Any, Nothing, _]] = silhouette.UserAwareRequestHandler { userAwareRequest =>
+      Future.successful(HandlerResult(Ok, Some(userAwareRequest.identity)))
+    }.map {
+      case HandlerResult(r, Some(Some(user))) =>
+        val controller = userToController.get(user) match {
+          case Some(c) => c
+          case None =>
+            val controller = createNewIndependentController()
+            userToController += (user -> controller)
+            controller
+        }
+
+        ActorFlow.actorRef { out =>
+          WSActor.props(out, controller)
+        }
+      case HandlerResult(r, _) =>
+        // users without login get their own controller/game
+        ActorFlow.actorRef { out =>
+          WSActor.props(out, createNewIndependentController())
+        }
     }
+    Await.result(future, 1.second)
   }(new MinesweeperMessageFlowTransformer)
+
 }
 
 class MinesweeperMessageFlowTransformer extends MessageFlowTransformer[MinesweeperAction, MinesweeperEvent] {

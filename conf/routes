@@ -2,8 +2,7 @@
 # ~~~~
 
 GET        /                              controllers.HomeController.index
-GET        /minesweeper                   controllers.HomeController.minesweeper(command = "")
-GET        /minesweeper/:command          controllers.HomeController.minesweeper(command)
+GET        /minesweeper                   controllers.HomeController.minesweeper
 GET        /history                       controllers.HomeController.history
 
 GET        /polymer                       controllers.HomeController.polymerGame
