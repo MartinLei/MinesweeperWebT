@@ -2,20 +2,25 @@ package controllers
 
 import javax.inject._
 
+import com.mohiva.play.silhouette.api.Silhouette
+import com.mohiva.play.silhouette.api.actions.SecuredErrorHandler
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
 import minesweeper.Minesweeper
 import minesweeper.aview.tui.TextUI
 import minesweeper.controller.impl.ControllerWrapper
 import play.api.i18n.I18nSupport
 import play.api.mvc._
+import utils.auth.DefaultEnv
 
 import scala.concurrent.ExecutionContext
+import scala.concurrent.Future
 
 @Singleton
 class HomeController @Inject()
 (
   cc: ControllerComponents,
-  socialProviderRegistry: SocialProviderRegistry
+  socialProviderRegistry: SocialProviderRegistry,
+  silhouette: Silhouette[DefaultEnv]
 )(
   implicit
   assets: AssetsFinder,
@@ -26,11 +31,20 @@ class HomeController @Inject()
 
   tuiInstance.setPrintCommands(false)
 
+  val errorHandler = new SecuredErrorHandler {
+    override def onNotAuthenticated(implicit request: RequestHeader): Future[Result] = {
+      Future.successful(Redirect("/signIn"))
+    }
+    override def onNotAuthorized(implicit request: RequestHeader): Future[Result] = {
+      Future.successful(Redirect("/signIn"))
+    }
+  }
+
   def index = Action {
     Ok(views.html.index())
   }
 
-  def minesweeper(command: String) = Action {
+  def minesweeper(command: String) = silhouette.SecuredAction(errorHandler) { implicit request =>
     if (command != "") {
       tuiInstance.processLine(command)
     }
@@ -48,13 +62,12 @@ class HomeController @Inject()
       Ok(views.html.signIn(socialProviderRegistry))
   }
 
-  def polymerGame = Action{
+  def polymerGame = silhouette.SecuredAction(errorHandler) { implicit request =>
     val tuiAsString: String = tuiInstance.getTUIAsString
     Ok(views.html.polymerGame(gameController.getGrid, tuiAsString))
-    //Ok(views.html.polymerGame());
   }
 
-  def vueGame = Action{
-    Ok(views.html.vueGame());
+  def vueGame = silhouette.SecuredAction(errorHandler) { implicit request =>
+    Ok(views.html.vueGame())
   }
 }

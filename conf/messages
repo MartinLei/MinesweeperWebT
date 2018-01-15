@@ -2,4 +2,4 @@ could.not.authenticate = Could not authenticate with social provider! Please try
 
 sign.in.title = Silhouette - Sign In
 error = Error!
-or.use.social = Or use your existing account on one of the following services to sign in:
+or.use.social = Please use your Google account to sign in:
