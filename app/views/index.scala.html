@@ -1,6 +1,5 @@
-@()
-
-@main("Welcome to Minesweeper") {
+@(user: Option[User])
+@main("Welcome to Minesweeper", user) {
   <div class="text-center">
     <div class="jumbotron text-center start_box box-shadow">
       <h1 class="display-3">Welcome to Minesweeper</h1>

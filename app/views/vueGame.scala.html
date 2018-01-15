@@ -1,5 +1,5 @@
-
-@main("Vue") {
+@(user: Option[User])
+@main("Vue", user) {
   <script src="@routes.Assets.versioned("vue/vue.min.js")" ></script>
   <script src="@routes.Assets.versioned("/vue/game.js")" type="text/javascript"></script>
 

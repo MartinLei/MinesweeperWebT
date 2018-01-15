@@ -35,13 +35,14 @@ class HomeController @Inject()
     override def onNotAuthenticated(implicit request: RequestHeader): Future[Result] = {
       Future.successful(Redirect("/signIn"))
     }
+
     override def onNotAuthorized(implicit request: RequestHeader): Future[Result] = {
       Future.successful(Redirect("/signIn"))
     }
   }
 
-  def index = Action {
-    Ok(views.html.index())
+  def index = silhouette.UserAwareAction { implicit request =>
+    Ok(views.html.index(request.identity))
   }
 
   def minesweeper(command: String) = silhouette.SecuredAction(errorHandler) { implicit request =>
@@ -50,24 +51,23 @@ class HomeController @Inject()
     }
 
     val tuiAsString: String = tuiInstance.getTUIAsString
-    Ok(views.html.game(gameController.getGrid, tuiAsString))
+    Ok(views.html.game(gameController.getGrid, tuiAsString, Some(request.identity)))
   }
 
-  def history = Action {
-    Ok(views.html.history())
+  def history = silhouette.UserAwareAction { implicit request =>
+    Ok(views.html.history(request.identity))
   }
 
-  def signIn = Action {
-    implicit request: Request[AnyContent] =>
-      Ok(views.html.signIn(socialProviderRegistry))
+  def signIn = silhouette.UserAwareAction { implicit request =>
+      Ok(views.html.signIn(socialProviderRegistry, request.identity))
   }
 
   def polymerGame = silhouette.SecuredAction(errorHandler) { implicit request =>
     val tuiAsString: String = tuiInstance.getTUIAsString
-    Ok(views.html.polymerGame(gameController.getGrid, tuiAsString))
+    Ok(views.html.polymerGame(gameController.getGrid, tuiAsString, Some(request.identity)))
   }
 
   def vueGame = silhouette.SecuredAction(errorHandler) { implicit request =>
-    Ok(views.html.vueGame())
+    Ok(views.html.vueGame(Some(request.identity)))
   }
 }

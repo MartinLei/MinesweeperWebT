@@ -1,8 +1,8 @@
 @import minesweeper.model.ICell
 @import minesweeper.model.IGrid
-@(grid: IGrid[ICell], tuiString: String)
+@(grid: IGrid[ICell], tuiString: String, user: Option[User])
 
-@main("Minesweeper") {
+@main("Minesweeper", user) {
   @game_controls()
   @wrapper__grid(grid)
   <div class="game-status text-center"></div>

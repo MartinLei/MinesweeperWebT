@@ -2,9 +2,9 @@
 @import controllers.AssetsFinder
 @import play.api.i18n.Messages
 
-@(socialProviders: SocialProviderRegistry)(implicit messages: Messages, assets: AssetsFinder)
+@(socialProviders: SocialProviderRegistry, user: Option[User])(implicit messages: Messages, assets: AssetsFinder)
 
-@main(messages("sign.in.title")) {
+@main(messages("sign.in.title"), user) {
     <fieldset class="col-md-6 col-md-offset-3">
 
         @if(socialProviders.providers.nonEmpty) {
