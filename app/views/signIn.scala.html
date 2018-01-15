@@ -4,19 +4,20 @@
 
 @(socialProviders: SocialProviderRegistry, user: Option[User])(implicit messages: Messages, assets: AssetsFinder)
 
-@main(messages("sign.in.title"), user) {
-    <fieldset class="col-md-6 col-md-offset-3">
+  @main(messages("sign.in.title"), user) {
 
-        @if(socialProviders.providers.nonEmpty) {
-            <div class="social-providers">
-                <p>@messages("or.use.social")</p>
-                <div>
-                @for(p <- socialProviders.providers) {
-                    <a href="@controllers.routes.SocialAuthController.authenticate(p.id)" class="provider @p.id" title="@messages(p.id)"><img src="@assets.path(s"images/providers/${p.id}.png")" width="64px" height="64px" alt="@messages(p.id)"></a>
-                }
-                </div>
-            </div>
-        }
+    @if(socialProviders.providers.nonEmpty) {
+      <div class="text-center">
+        <div class="social-providers jumbotron text-center start_box box-shadow">
+          <p class="lead">@messages("or.use.social")</p>
+          <hr class="my-4">
+          <div>
+          @for(p <- socialProviders.providers) {
+            <a href="@controllers.routes.SocialAuthController.authenticate(p.id)" class="box-shadow provider @p.id" title="@messages(p.id)"><img src="@assets.path(s"images/providers/${p.id}.png")" width="64px" height="64px" alt="@messages(p.id)"></a>
+          }
+          </div>
+        </div>
+      </div>
+    }
 
-    </fieldset>
-}
+  }
