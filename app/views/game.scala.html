@@ -1,10 +1,8 @@
-@import minesweeper.model.ICell
-@import minesweeper.model.IGrid
-@(grid: IGrid[ICell], tuiString: String, user: Option[User])
+@(tuiString: String, user: Option[User])
 
 @main("Minesweeper", user) {
   @game_controls()
-  @wrapper__grid(grid)
+  @wrapper__grid()
   <div class="game-status text-center"></div>
   <script src="@routes.Assets.versioned("/javascripts/game.js")" type="text/javascript"></script>
 }

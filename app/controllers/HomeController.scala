@@ -52,7 +52,7 @@ class HomeController @Inject()
     }
 
     val tuiAsString: String = tuiInstance.getTUIAsString
-    Ok(views.html.game(gameController.getGrid, tuiAsString, Some(request.identity)))
+    Ok(views.html.game(tuiAsString, Some(request.identity)))
   }
 
   def history = silhouette.UserAwareAction { implicit request =>
@@ -71,7 +71,7 @@ class HomeController @Inject()
 
   def polymerGame = silhouette.SecuredAction(errorHandler) { implicit request =>
     val tuiAsString: String = tuiInstance.getTUIAsString
-    Ok(views.html.polymerGame(gameController.getGrid, tuiAsString, Some(request.identity)))
+    Ok(views.html.polymerGame(tuiAsString, Some(request.identity)))
   }
 
   def vueGame = silhouette.SecuredAction(errorHandler) { implicit request =>

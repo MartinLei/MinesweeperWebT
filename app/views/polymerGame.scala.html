@@ -1,6 +1,4 @@
-@import minesweeper.model.ICell
-@import minesweeper.model.IGrid
-@(grid: IGrid[ICell], tuiString: String, user: Option[User])
+@(tuiString: String, user: Option[User])
 
 @main("Polymer", user) {
 
@@ -10,5 +8,5 @@
   <polymer-minesweeper-app></polymer-minesweeper-app>
 
     <!--TODO make a minesweeper grid web-component-->
-  @wrapper__grid(grid)
+  @wrapper__grid()
 }
