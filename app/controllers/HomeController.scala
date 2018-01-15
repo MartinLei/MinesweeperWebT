@@ -2,6 +2,7 @@ package controllers
 
 import javax.inject._
 
+import com.mohiva.play.silhouette.api.LogoutEvent
 import com.mohiva.play.silhouette.api.Silhouette
 import com.mohiva.play.silhouette.api.actions.SecuredErrorHandler
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
@@ -60,6 +61,12 @@ class HomeController @Inject()
 
   def signIn = silhouette.UserAwareAction { implicit request =>
       Ok(views.html.signIn(socialProviderRegistry, request.identity))
+  }
+
+  def signOut = silhouette.SecuredAction.async { implicit request =>
+    val result = Redirect(routes.HomeController.index())
+    silhouette.env.eventBus.publish(LogoutEvent(request.identity, request))
+    silhouette.env.authenticatorService.discard(request.authenticator, result)
   }
 
   def polymerGame = silhouette.SecuredAction(errorHandler) { implicit request =>

@@ -1,5 +1,25 @@
-@(user: Option[User])(content: Html)
+@(optUser: Option[User])(content: Html)
 
+@userNavbarItem(user: User) = {
+  @{
+    user.avatarURL match {
+      case Some(url) =>
+          <img class="navbar-user-logo" style="margin" src={url} width="40" height="40" alt="" />
+      case None =>
+    }
+  }
+  <span class="navbar-text">
+  @{
+    (user.firstName, user.lastName) match {
+      case (Some(firstName), Some(lastName)) => s"$firstName $lastName"
+      case _ => "Logged in"
+    }
+  }
+  </span>
+  <li class="nav-item">
+    <a class="nav-link" href="@controllers.routes.HomeController.signOut()">Sign out</a>
+  </li>
+}
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
   <a class="navbar-brand" href="#">
@@ -28,12 +48,11 @@
     </ul>
     <ul class="navbar-nav">
     @{
-      user match {
-        case Some(user) =>
-          <a class="navbar-text" href="/signIn">{user.fullName.getOrElse("Logged in")}</a>
+      optUser match {
+        case Some(user) => userNavbarItem(user)
         case None =>
           <li class="nav-item">
-            <a class="nav-link" href="/signIn">Sign in</a>
+          <a class="nav-link" href="/signIn">Sign in</a>
           </li>
       }
     }
