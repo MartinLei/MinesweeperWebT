@@ -10,13 +10,17 @@ import api.MinesweeperAction.OpenCell
 import api.MinesweeperAction.ToggleFlag
 import api.MinesweeperEvent
 import minesweeper.controller.IMinesweeperControllerSolvable
+import minesweeper.util.observer.Event
+import minesweeper.util.observer.IObserver
 
 object WSActor {
   def props(out: ActorRef, gameController: IMinesweeperControllerSolvable) = Props(new WSActor(out, gameController))
 }
 
-class WSActor(out: ActorRef, gameController: IMinesweeperControllerSolvable) extends Actor {
+class WSActor(out: ActorRef, gameController: IMinesweeperControllerSolvable) extends Actor with IObserver {
   println("WSActor created")
+
+  gameController.addObserver(this)
 
   def receive: PartialFunction[Any, Unit] = {
     case action: MinesweeperAction =>
@@ -35,14 +39,19 @@ class WSActor(out: ActorRef, gameController: IMinesweeperControllerSolvable) ext
         case Join() =>
       }
 
-      val minesweeperEvent = MinesweeperEvent(
-        gameController.getEvent,
-        gameController.getGrid,
-        gameController.getGameStateString
-      )
+      sendEvent(gameController.getEvent)
 
-      send(minesweeperEvent)
     case unknownMessage => println("WSActor: unknown message: " + unknownMessage)
+  }
+
+  def sendEvent(event: Event): Unit = {
+    val minesweeperEvent = MinesweeperEvent(
+      event,
+      gameController.getGrid,
+      gameController.getGameStateString
+    )
+
+    send(minesweeperEvent)
   }
 
   def send(event: MinesweeperEvent): Unit = {
@@ -51,5 +60,8 @@ class WSActor(out: ActorRef, gameController: IMinesweeperControllerSolvable) ext
 
   override def postStop(): Unit = {
     println("WSActor: stopped")
+    gameController.removeObserver(this)
   }
+
+  override def update(event: Event): Unit = sendEvent(event)
 }
