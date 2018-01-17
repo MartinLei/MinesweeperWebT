@@ -1,10 +1,13 @@
 # MinesweeperWebT
 HTWG WebTech Lecture. Used play as server and [MinesweeperSoEn](https://github.com/MathiasLengler/MinesweeperSoEn)
+See running instance on Heroku -> [minesweeper](https://minesweeper-webt.herokuapp.com/)
+
+#Features
+- OAuth2 Google with Silhouette
+- Minesweeper game in jQuery, Vue and Polymer 
+- Communication over websockets
+- Each user has his own game
+- User with multiple sessions are synced
 
 # TODO
-- Siluette Google OAuth2
-- One Game per User
-- Observer + Websocket
-- One User with multiple clients synced
-- Deploy on Heroku
 - Fix Bug: first WS connection gets closed directly
